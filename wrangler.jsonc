@@ -3,5 +3,9 @@
   "compatibility_date": "2026-11-10",
   "assets": {
     "directory": "./public"
-  }
+  },
+  "routes": [
+    { "pattern": "cadekendall.com", "custom_domain": true },
+    { "pattern": "www.cadekendall.com", "custom_domain": true }
+  ]
 }
