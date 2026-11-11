@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cade Kendall</title>
+  <meta name="description" content="Cade Kendall: student and builder. Software for finance, data, and everyday problems.">
+  <meta property="og:title" content="Cade Kendall">
+  <meta property="og:description" content="Student and builder. I make software for finance, data, and everyday problems.">
+  <meta property="og:url" content="https://cadekendall.com/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --fg: #09090B;
+      --card: #FFFFFF;
+      --muted: #E8ECF0;
+      --muted-fg: #475569;
+      --border: #18181B;
+      --border-soft: #E4E4E7;
+      --accent: #2563EB;
+      --on-accent: #FFFFFF;
+      --shadow: #18181B;
+      --ring: #2563EB;
+      --font-head: "Space Grotesk", system-ui, sans-serif;
+      --font-body: "Archivo", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #09090B;
+        --fg: #FAFAFA;
+        --card: #18181B;
+        --muted: #27272A;
+        --muted-fg: #A1A1AA;
+        --border: #FAFAFA;
+        --border-soft: #3F3F46;
+        --accent: #60A5FA;
+        --on-accent: #09090B;
+        --shadow: #60A5FA;
+        --ring: #93C5FD;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 480px) { .wrap { padding: 0 16px; } }
+
+    /* Nav */
+    header.nav {
+      border-bottom: 2px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      background: var(--bg);
+    }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-family: var(--font-head); font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -0.01em; }
+    .logo span { color: var(--accent); }
+    .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+    .nav a.link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 12px; text-decoration: none; font-weight: 500; font-size: 15px;
+      border: 2px solid transparent;
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+    .nav a.link:hover { border-color: var(--border); }
+    @media (max-width: 480px) { .nav .hide-sm { display: none; } }
+
+    /* Hero */
+    .hero { padding: 96px 0 72px; border-bottom: 2px solid var(--border); }
+    .eyebrow {
+      display: inline-block; font-family: var(--font-head); font-weight: 600; font-size: 13px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      border: 2px solid var(--border); padding: 4px 10px; margin-bottom: 24px;
+    }
+    h1 {
+      font-family: var(--font-head); font-weight: 700;
+      font-size: clamp(48px, 10vw, 112px); line-height: 0.95; letter-spacing: -0.04em;
+      margin: 0 0 24px;
+    }
+    .tagline { font-size: clamp(19px, 2.4vw, 24px); max-width: 640px; color: var(--muted-fg); margin: 0 0 36px; }
+    .tagline strong { color: var(--fg); font-weight: 600; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; min-height: 48px;
+      font-family: var(--font-head); font-weight: 600; font-size: 16px; text-decoration: none;
+      border: 2px solid var(--border); background: var(--card); color: var(--fg);
+      box-shadow: 4px 4px 0 var(--shadow);
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shadow); }
+    .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow); }
+    .btn.primary { background: var(--accent); color: var(--on-accent); }
+    .icon { width: 18px; height: 18px; flex: none; }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+    h2 { font-family: var(--font-head); font-weight: 700; font-size: clamp(32px, 5vw, 48px); letter-spacing: -0.03em; margin: 0; line-height: 1.05; }
+    .count { font-family: var(--font-head); color: var(--muted-fg); font-size: 15px; }
+
+    /* Projects */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      display: flex; flex-direction: column;
+      background: var(--card); border: 2px solid var(--border);
+      box-shadow: 6px 6px 0 var(--shadow);
+      padding: 28px;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--shadow); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .num { font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--accent); letter-spacing: 0.04em; }
+    .card h3 { font-family: var(--font-head); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; margin: 4px 0 0; line-height: 1.15; }
+    .card p { margin: 0 0 20px; color: var(--muted-fg); }
+    .card ul.points { margin: 0 0 24px; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .card ul.points li { position: relative; padding-left: 20px; font-size: 15px; }
+    .card ul.points li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px; background: var(--accent); }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: auto 0 24px; padding: 0; list-style: none; }
+    .tags li { font-family: var(--font-head); font-size: 13px; font-weight: 500; padding: 3px 10px; background: var(--muted); border: 1px solid var(--border-soft); }
+    .card-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .card-links .btn { padding: 10px 16px; min-height: 44px; font-size: 15px; box-shadow: 3px 3px 0 var(--shadow); }
+    .card-links .btn:hover { box-shadow: 5px 5px 0 var(--shadow); }
+
+    /* About */
+    .about { border-top: 2px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; }
+    @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } }
+    .about p { margin: 0 0 16px; font-size: 18px; max-width: 640px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 24px 0 0; }
+    .skills li { font-family: var(--font-head); font-weight: 500; font-size: 15px; padding: 6px 12px; border: 2px solid var(--border); }
+
+    /* Footer */
+    footer { border-top: 2px solid var(--border); padding: 48px 0; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    footer h2 { font-size: clamp(28px, 4vw, 40px); }
+    .small { color: var(--muted-fg); font-size: 14px; margin-top: 32px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .btn:hover, .card:hover, .btn:active { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Lucide icons (ISC license) -->
+    <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+  </svg>
+
+  <a href="#projects" class="btn" style="position:absolute;left:-9999px;top:8px" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to projects</a>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="/">cade<span>kendall</span>.com</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a class="link" href="#projects">Projects</a></li>
+          <li class="hide-sm"><a class="link" href="#about">About</a></li>
+          <li><a class="link" href="https://github.com/CadeKendall" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Student &amp; builder</span>
+        <h1>Cade<br>Kendall</h1>
+        <p class="tagline">I make software for <strong>finance</strong>, <strong>data</strong>, and <strong>everyday problems</strong>, usually because a tool I needed didn't exist or wasn't good enough.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>See my projects</a>
+          <a class="btn" href="https://github.com/CadeKendall" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub profile</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <span class="count">04 projects</span>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <span class="num">01 / FINANCE</span>
+                <h3>Financial Calculator</h3>
+              </div>
+            </div>
+            <p>An open-source, offline financial calculator with the keystroke model of a classic business calculator, rebuilt with the features I always wished the physical one had.</p>
+            <ul class="points">
+              <li>Undo, history, copy/paste, and a Define key that explains every function</li>
+              <li>TypeScript engine with automated reference tests</li>
+              <li>Runs in the browser and as an iPhone app</li>
+            </ul>
+            <ul class="tags" aria-label="Technologies">
+              <li>TypeScript</li><li>Expo / React Native</li><li>decimal.js</li>
+            </ul>
+            <div class="card-links">
+              <a class="btn" href="https://github.com/CadeKendall/financial-calculator" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>View code</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <span class="num">02 / INVESTING</span>
+                <h3>Portfolio Optimizer</h3>
+              </div>
+            </div>
+            <p>A web app for mean-variance portfolio optimization and walk-forward backtesting, built so the results can't cheat by peeking at future prices.</p>
+            <ul class="points">
+              <li>Max-Sharpe, min-volatility, and efficient-frontier portfolios</li>
+              <li>Walk-forward backtests with transaction costs and no lookahead</li>
+              <li>Ledoit-Wolf shrinkage covariance; Yahoo Finance or CSV data</li>
+            </ul>
+            <ul class="tags" aria-label="Technologies">
+              <li>Python</li><li>FastAPI</li><li>PyPortfolioOpt</li>
+            </ul>
+            <div class="card-links">
+              <a class="btn" href="https://github.com/CadeKendall/portfolio-optimizer" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>View code</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <span class="num">03 / VALUATION</span>
+                <h3>DCF Model</h3>
+              </div>
+            </div>
+            <p>A discounted-cash-flow research pipeline and cost-of-capital dashboard that pulls real market and fundamentals data to estimate CAPM and WACC.</p>
+            <ul class="points">
+              <li>WRDS / CRSP, Compustat, and FRED data connections</li>
+              <li>Web dashboard for ticker, date range, and benchmark selection</li>
+              <li>Jupyter notebooks for the underlying analysis</li>
+            </ul>
+            <ul class="tags" aria-label="Technologies">
+              <li>Python</li><li>Jupyter</li><li>Pandas</li>
+            </ul>
+            <div class="card-links">
+              <a class="btn" href="https://github.com/CadeKendall/DCF-Model" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>View code</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <span class="num">04 / LEARNING</span>
+                <h3>AI Assist</h3>
+              </div>
+            </div>
+            <p>A desktop visual-learning workbench: ask for a 3D model, chart, or diagram, click on any part of it, and ask a follow-up about just that piece.</p>
+            <ul class="points">
+              <li>Interactive 3D scenes, charts, and diagrams drawn by an AI tutor</li>
+              <li>Select a part to carry its context into the next question</li>
+              <li>Save and reopen lessons with their visuals and conversation</li>
+            </ul>
+            <ul class="tags" aria-label="Technologies">
+              <li>TypeScript</li><li>Electron</li><li>React</li><li>Three.js</li>
+            </ul>
+            <div class="card-links">
+              <a class="btn" href="https://github.com/CadeKendall/aiassist" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>View code</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="wrap about-grid">
+        <h2>About</h2>
+        <div>
+          <p>I'm a student who likes building things that solve problems I actually have. Most of my projects start as frustration with an existing tool and end up as something I use every day.</p>
+          <p>Lately I've been focused on finance: valuation models, portfolio construction, and calculators that are faster and clearer than the ones I had to use.</p>
+          <ul class="skills" aria-label="Skills">
+            <li>Python</li><li>TypeScript</li><li>React</li><li>FastAPI</li><li>Jupyter</li><li>Electron</li><li>Financial modeling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <h2>Want to see more?</h2>
+      <a class="btn primary" href="https://github.com/CadeKendall" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>github.com/CadeKendall<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="wrap"><p class="small">&copy; <span id="y">2026</span> Cade Kendall</p></div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
