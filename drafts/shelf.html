@@ -73,8 +73,9 @@
     ul.points li { position: relative; padding-left: 18px; color: var(--muted); }
     ul.points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 1px; background: var(--line); }
     .tags { font-family: var(--font-head); font-size: 14px; color: var(--muted); margin: 0 0 24px; }
-    .links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .links { display: flex; gap: 8px 20px; flex-wrap: wrap; }
     .links a {
+      display: inline-flex; align-items: center; min-height: 44px;   /* comfortable tap target */
       font-family: var(--font-head); font-weight: 600; color: var(--link);
       text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
       cursor: pointer; transition: text-decoration-thickness 150ms ease, opacity 150ms ease;
@@ -119,46 +120,21 @@
     /* ---- Phones / narrow screens: shelf on top, text below ---- */
     @media (max-width: 800px) {
       .layout { grid-template-columns: 1fr; }
-      .scene { order: 0; height: 44vh; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); padding: 2vh 16px; }
+      /* svh = the height with the browser toolbar showing, so the panel doesn't grow behind it on iOS */
+      .scene { order: 0; height: 44vh; height: 44svh; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); padding: 2vh 16px; }
       .content { order: 1; border-right: none; }
       section { min-height: 80vh; padding: 8vh 16px; }
-      section.project { min-height: 75vh; padding-block: 6vh; scroll-margin-top: 44vh; }   /* land below the shelf panel */
+      #about { min-height: auto; justify-content: flex-start; padding-top: 32px; padding-bottom: 24px; }   /* name right under the shelf, no empty gap */
+      section.project { min-height: 75vh; padding-block: 24px; scroll-margin-top: 44vh; scroll-margin-top: 44svh; }   /* land below the shelf panel */
+      /* the project's links right after its description, so they're on screen when you tap its object */
+      section.project > .links { order: 1; margin-bottom: 16px; }
+      section.project > :is(ul.points, .tags) { order: 2; }
       .counter { right: 16px; bottom: 12px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
   <div class="layout">
-    <aside class="scene">
-      <svg id="scene" role="img" aria-label="Line drawing of a shelf holding Cade's projects; the current project lifts off the shelf" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <radialGradient id="nucleus-grad">
-            <stop offset="0%" stop-color="#FFF8D6"/>
-            <stop offset="45%" stop-color="#FFD23F"/>
-            <stop offset="100%" stop-color="#FF5A36"/>
-          </radialGradient>
-          <radialGradient id="aura-grad">
-            <stop offset="0%" stop-color="#FFE27A" stop-opacity="0.75"/>
-            <stop offset="35%" stop-color="#FFD23F" stop-opacity="0.38"/>
-            <stop offset="70%" stop-color="#FFB627" stop-opacity="0.12"/>
-            <stop offset="100%" stop-color="#FFB627" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="shell-grad">
-            <stop offset="55%" class="holo-stop" stop-opacity="0"/>
-            <stop offset="100%" class="holo-stop" stop-opacity="0.22"/>
-          </radialGradient>
-          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="0.9" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <g id="shelf-layer"></g>
-        <g id="object-layer"></g>
-        <g id="hit-layer"></g>
-      </svg>
-      <p class="counter" aria-hidden="true"><b>01</b> / 04</p>
-      <p class="tap-hint" hidden>Tap an object to open its project</p>
-    </aside>
 
     <main class="content">
       <section id="about">
@@ -226,6 +202,38 @@
         <div class="links"><a href="../public/CadeKendall-Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a><a href="https://github.com/CadeKendall" rel="noopener">GitHub</a></div>
       </section>
     </main>
+
+    <!-- The shelf comes after the text in the page order, so keyboard and screen-reader users reach the résumé and projects first; CSS still shows it on the right (top on phones). -->
+    <aside class="scene">
+      <svg id="scene" role="img" aria-label="Line drawing of a shelf holding Cade's projects; the current project lifts off the shelf" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="nucleus-grad">
+            <stop offset="0%" stop-color="#FFF8D6"/>
+            <stop offset="45%" stop-color="#FFD23F"/>
+            <stop offset="100%" stop-color="#FF5A36"/>
+          </radialGradient>
+          <radialGradient id="aura-grad">
+            <stop offset="0%" stop-color="#FFE27A" stop-opacity="0.75"/>
+            <stop offset="35%" stop-color="#FFD23F" stop-opacity="0.38"/>
+            <stop offset="70%" stop-color="#FFB627" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#FFB627" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="shell-grad">
+            <stop offset="55%" class="holo-stop" stop-opacity="0"/>
+            <stop offset="100%" class="holo-stop" stop-opacity="0.22"/>
+          </radialGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.9" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g id="shelf-layer"></g>
+        <g id="object-layer"></g>
+        <g id="hit-layer"></g>
+      </svg>
+      <p class="counter" aria-hidden="true"><b>01</b> / 04</p>
+      <p class="tap-hint" hidden>Tap an object to open its project</p>
+    </aside>
   </div>
 
   <script>
@@ -825,13 +833,18 @@
     // ---- "01 / 04" counter for the project currently on screen ----
     const counter = document.querySelector('.counter');
     let lastCount = -2;
+    // Shows the project's name too ("Portfolio Optimizer · 02 / 04"). A hovered or focused shelf
+    // wins over the one scrolled to, so pointing at a shelf tells you what's on it.
     function updateCounter() {
-      let best = -1, bestP = 0.5;
-      OBJECTS.forEach((o, i) => { const p = sectionProgress(o.sectionEl); if (p > bestP) { best = i; bestP = p; } });
+      let best = OBJECTS.findIndex(o => o.hoverTarget > 0);
+      if (best < 0) {
+        let bestP = 0.5;
+        OBJECTS.forEach((o, i) => { const p = sectionProgress(o.sectionEl); if (p > bestP) { best = i; bestP = p; } });
+      }
       if (best === lastCount) return;
       lastCount = best;
       counter.classList.toggle('on', best >= 0);
-      if (best >= 0) counter.innerHTML = `<b>${String(best + 1).padStart(2, '0')}</b> / ${String(OBJECTS.length).padStart(2, '0')}`;
+      if (best >= 0) counter.innerHTML = `${OBJECTS[best].label} · <b>${String(best + 1).padStart(2, '0')}</b> / ${String(OBJECTS.length).padStart(2, '0')}`;
     }
 
     // ---- Touch screens can't hover: say that objects can be tapped, until they've found out ----
